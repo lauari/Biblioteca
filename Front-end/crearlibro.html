@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Agregar libro</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<style>
+    /* estilo boton */
+    .button {
+        display: block;
+        position: relative;
+        width: 56px;
+        height: 56px;
+        margin: 0;
+        overflow: hidden;
+        outline: none;
+        background-color: transparent;
+        cursor: pointer;
+        border: 0;
+    }
+
+    .button:before,
+    .button:after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        inset: 7px;
+    }
+
+    .button:before {
+        border: 4px solid #198754;
+        transition: opacity 0.4s cubic-bezier(0.77, 0, 0.175, 1) 80ms,
+            transform 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) 80ms;
+    }
+
+    .button:after {
+        border: 4px solid #ffffff;
+        transform: scale(1.3);
+        transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+            transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        opacity: 0;
+    }
+
+    .button:hover:before,
+    .button:focus:before {
+        opacity: 0;
+        transform: scale(0.7);
+        transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+            transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .button:hover:after,
+    .button:focus:after {
+        opacity: 1;
+        transform: scale(1);
+        transition: opacity 0.4s cubic-bezier(0.77, 0, 0.175, 1) 80ms,
+            transform 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) 80ms;
+    }
+
+    .button-box {
+        display: flex;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .button-elem {
+        display: block;
+        width: 20px;
+        height: 20px;
+        margin: 17px 18px 0 18px;
+        transform: rotate(180deg);
+        fill: #198754;
+    }
+
+    .button:hover .button-box,
+    .button:focus .button-box {
+        transition: 0.4s;
+        transform: translateX(-56px);
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="col-sm-8 d-flex align-items-center">
+            <!-- Botón "Volver al usuario" -->
+            <a href="./libro.html" class="button mr-3">
+                <div class="button-box">
+                    <span class="button-elem">
+                        <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z">
+                            </path>
+                        </svg>
+                    </span>
+                    <span class="button-elem">
+                        <svg viewBox="0 0 46 40">
+                            <path
+                                d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z">
+                            </path>
+                        </svg>
+                    </span>
+                </div>
+            </a>
+            <!-- Título del listado -->
+            <h2><b>Agregar un nuevo libro</b></h2>
+        </div>
+        <div class="row">
+            <div class="col col-xl-6 col-12 Dark__container">
+                <label class="Dark__label" for="titulo">Titulo</label>
+                <input type="text" id="titulo" class="form-control Dark__input">
+            </div>
+            <div class="col col-xl-6 col-12 Dark__container">
+                <label class="Dark__label" for="autor">Autor</label>
+                <input type="text" id="autor" class="form-control Dark__input">
+            </div>
+            <div class="col col-xl-6 col-12 Dark__container">
+                <label class="Dark__label" for="ISBN">ISBN</label>
+                <input type="number" id="ISBN" class="form-control Dark__input">
+            </div>
+            <div class="col col-xl-6 col-12 Dark__container">
+                <label class="Dark__label" for="genero">Genero</label>
+                <select id="genero" class="form-control Dark__input">
+                    <option value="">Seleccione un género</option>
+                    <option value="aventura">Aventura</option>
+                    <option value="biografia">Biografía</option>
+                    <option value="ciencia_ficcion">Ciencia Ficción</option>
+                    <option value="clasicos">Clásicos</option>
+                    <option value="contemporanea">Contemporánea</option>
+                    <option value="cuento">Cuento</option>
+                    <option value="drama">Drama</option>
+                    <option value="ensayo">Ensayo</option>
+                    <option value="fantasia">Fantasía</option>
+                    <option value="historia">Historia</option>
+                    <option value="horror">Horror</option>
+                    <option value="infantil">Infantil</option>
+                    <option value="misterio">Misterio</option>
+                    <option value="novela">Novela</option>
+                    <option value="poesia">Poesía</option>
+                    <option value="romance">Romance</option>
+                    <option value="saga">Saga</option>
+                    <option value="suspenso">Suspenso</option>
+                    <option value="terror">Terror</option>
+                    <option value="thriller">Thriller</option>
+                    <option value="autoayuda">Autoayuda</option>
+                    <option value="erotico">Erótico</option>
+                    <option value="juvenil">Juvenil</option>
+                    <option value="politica">Política</option>
+                    <option value="religioso">Religioso</option>
+                    <option value="ciencia">Ciencia</option>
+                    <option value="filosofia">Filosofía</option>
+                    <option value="historia_ficcion">Historia de Ficción</option>
+                    <option value="musica">Música</option>
+                    <option value="psicologia">Psicología</option>
+                    <option value="viajes">Viajes</option>
+                    <option value="cocina">Cocina</option>
+                    <option value="medicina">Medicina</option>
+                    <option value="arte">Arte</option>
+                    <option value="deportes">Deportes</option>
+                    <option value="educacion">Educación</option>
+                    <option value="negocios">Negocios</option>
+                    <option value="computacion">Computación</option>
+                    <option value="ingenieria">Ingeniería</option>
+                    <option value="tecnologia">Tecnología</option>
+                    <option value="crimen">Crimen</option>
+                </select>
+            </div>
+            <div class="col col-xl-6 col-12 Dark__container">
+                <label class="Dark__label" for="numEjemdisponibles">Numero disponibles</label>
+                <input type="number" id="numEjemdisponibles" class="form-control Dark__input">
+            </div>
+            <div class="col col-xl-6 col-12 Dark__container">
+                <label class="Dark__label" for="numEjemocupados">Numero ocupados</label>
+                <input type="number" id="numEjemocupados" class="form-control Dark__input">
+            </div>
+        </div>
+        <button class="btn btn-success" onclick="agregarLibro()">Enviar</button>
+        <button class="btn btn-secondary" onclick="limpiarFormulario()">Limpiar</button>
+    </div>
+
+    <div id="mensaje" style="color: green;"></div>
+    <script src="../Front-end/jsBiblio/libro.js"></script>
+</body>
+
+</html>
