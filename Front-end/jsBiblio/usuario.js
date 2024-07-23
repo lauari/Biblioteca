@@ -52,7 +52,7 @@ function listaUsuario() {
                         confirmButtonText: 'Sí, eliminar'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            eliminarLibro(usuario.idUsuario);
+                            eliminarUsuario(usuario.idUsuario);
                         }
                     });
                 });
@@ -78,6 +78,8 @@ function listaUsuario() {
                 // Añadir el registro a la tabla
                 cuerpoTablaU.appendChild(trRegistro);
             });
+
+            
         },
         error: function (error) {
             console.error("Error en la petición:", error);
@@ -120,7 +122,7 @@ function agregarUsuario() {
         "nombre": nombre,
         "direccion": direccion,
         "correo": correo,
-        "tipoUsuario": tipoUsuario,
+        "tipoUsuario": tipoUsuario
     };
 
     $.ajax({

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="formularioUsuario" style="display:none;">
+        <input type="hidden" id="idUsuario">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre"><br>
+    
+        <label for="direccion">Dirección:</label>
+        <input type="text" id="direccion"><br>
+    
+        <label for="correo">Correo:</label>
+        <input type="email" id="correo"><br>
+    
+        <label for="tipoUsuario">Tipo de Usuario:</label>
+        <select id="tipoUsuario">
+            <option value="admin">Admin</option>
+            <option value="usuario">Usuario</option>
+        </select><br>
+    
+        <button type="button" onclick="actualizarUsuario()">Actualizar Usuario</button>
+    </form>
+    
+</body>
+</html>
