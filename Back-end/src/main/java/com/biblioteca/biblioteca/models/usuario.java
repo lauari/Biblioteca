@@ -12,7 +12,10 @@ public class usuario {
      * Nombre
        Dirección
        Correo electrónico
-       Tipo de usuario (lector, bibliotecario, administrador)
+       Tipo de usuario
+            1.lector
+            2.bibliotecario
+            3.administrador
      */
 
     @Id
