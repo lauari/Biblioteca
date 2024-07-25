@@ -31,7 +31,7 @@ public class libro {
      private String autor;
 
      @Column(name = "ISBN", nullable = false, length = 36)
-     private String ISBN;
+     private int ISBN;
 
      @Column(name = "genero", nullable = false, length = 36)
      private String genero;
@@ -45,7 +45,7 @@ public class libro {
     public libro() {
     }
 
-    public libro(String idLibro, String titulo, String autor, String iSBN, String genero, int numEjemdisponibles,
+    public libro(String idLibro, String titulo, String autor, int iSBN, String genero, int numEjemdisponibles,
             int numEjemocupados) {
         this.idLibro = idLibro;
         this.titulo = titulo;
@@ -80,11 +80,11 @@ public class libro {
         this.autor = autor;
     }
 
-    public String getISBN() {
+    public int getISBN() {
         return ISBN;
     }
 
-    public void setISBN(String iSBN) {
+    public void setISBN(int iSBN) {
         ISBN = iSBN;
     }
 
@@ -111,8 +111,6 @@ public class libro {
     public void setNumEjemocupados(int numEjemocupados) {
         this.numEjemocupados = numEjemocupados;
     }
-
-  
 
     
 }

@@ -37,11 +37,6 @@ public class libroController {
             return new ResponseEntity<>("El autor del libro es un campo obligatorio", HttpStatus.BAD_REQUEST);
         }
 
-        if (libro.getISBN().equals("")) {
-
-            return new ResponseEntity<>("El ISBN del libro es un campo obligatorio", HttpStatus.BAD_REQUEST);
-        }
-
         if (libro.getGenero().equals("")) {
 
             return new ResponseEntity<>("El genero del libro es un campo obligatorio", HttpStatus.BAD_REQUEST);
@@ -57,7 +52,7 @@ public class libroController {
         return new ResponseEntity<>(Libro, HttpStatus.OK);
     }
 
-    @GetMapping("/{idLibro}")
+    @GetMapping("/{id}")
     public ResponseEntity<Object> findOne(@PathVariable String id) {
         var libro = libroService.findOne(id);
         return new ResponseEntity<>(libro, HttpStatus.OK);
@@ -69,7 +64,7 @@ public class libroController {
         return new ResponseEntity<>("Registro eliminado", HttpStatus.OK);
     }
 
-    @PutMapping("/{idLibro}")
+    @PutMapping("/{id}")
     public ResponseEntity<Object> update(@PathVariable String id, @ModelAttribute("libro") libro libroUpdate){
         var libro= libroService.findOne(id).get();
 
