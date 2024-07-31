@@ -37,16 +37,6 @@ public class prestamoController {
             return new ResponseEntity<>("es un campo obligatorio", HttpStatus.BAD_REQUEST);
         }
 
-        if (prestamo.getUsuarioPrestamo().equals("")) {
-
-            return new ResponseEntity<>("es un campo obligatorio", HttpStatus.BAD_REQUEST);
-        }
-
-        if (prestamo.getLibroPrestado().equals("")) {
-
-            return new ResponseEntity<>("es un campo obligatorio", HttpStatus.BAD_REQUEST);
-        }
-
         if (prestamo.getEstado().equals("")) {
 
             return new ResponseEntity<>("es un campo obligatorio", HttpStatus.BAD_REQUEST);
@@ -61,7 +51,7 @@ public class prestamoController {
         return new ResponseEntity<>(prestamo, HttpStatus.OK);
     }
 
-    @GetMapping("/{idUsuario}")
+    @GetMapping("/{id}")
     public ResponseEntity<Object> findOne(@PathVariable String id) {
         var prestamo = prestamoService.findOne(id);
         return new ResponseEntity<>(prestamo, HttpStatus.OK);
@@ -73,7 +63,7 @@ public class prestamoController {
         return new ResponseEntity<>("Registro eliminado", HttpStatus.OK);
     }
 
-    @PutMapping("/{idUsuario}")
+    @PutMapping("/{id}")
     public ResponseEntity<Object> update(@PathVariable String id, @ModelAttribute("prestamo") prestamo prestamoUpdate){
         var prestamo = prestamoService.findOne(id).get();
 
@@ -81,8 +71,6 @@ public class prestamoController {
             
             prestamo.setFechaPrestamo(prestamoUpdate.getFechaPrestamo());
             prestamo.setFechaDevolucion(prestamoUpdate.getFechaDevolucion());
-            prestamo.setUsuarioPrestamo(prestamoUpdate.getUsuarioPrestamo());
-            prestamo.setLibroPrestado(prestamoUpdate.getLibroPrestado());
             prestamo.setEstado(prestamoUpdate.getEstado());
           
             prestamoService.save(prestamo);

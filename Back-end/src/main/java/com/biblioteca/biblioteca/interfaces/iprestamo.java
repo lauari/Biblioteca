@@ -11,7 +11,7 @@ import com.biblioteca.biblioteca.models.prestamo;
 @Repository
 public interface iprestamo extends CrudRepository<prestamo, String>{
 
-     @Query("SELECT p FROM prestamo p WHERE p.estado = ?1 OR p.UsuarioPrestamo = ?2")
-    List<prestamo> prestamoExist(String estado, String UsuarioPrestamo);
+     @Query("SELECT p FROM prestamo p WHERE p.estado = ?1")
+    List<prestamo> prestamoExist(String estado);
 
 }

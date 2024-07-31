@@ -38,8 +38,8 @@ public class prestamoService implements iprestamoService{
 
     
     @Override
-    public List<prestamo> prestamoExist(String estado, String UsuarioPrestamo) {
-            List<prestamo> listaprestamo =data.prestamoExist(estado, UsuarioPrestamo);
+    public List<prestamo> prestamoExist(String estado) {
+            List<prestamo> listaprestamo =data.prestamoExist(estado);
             return listaprestamo;
     }
 
@@ -48,6 +48,11 @@ public class prestamoService implements iprestamoService{
         data.deleteById(id);
         return 1;
     }
+    @Override
+    public List<prestamo> filtropPrestamos(String filtro) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'filtropPrestamos'");
+    }
 
     @Override
     public Object findById(String id) {
@@ -55,12 +60,5 @@ public class prestamoService implements iprestamoService{
         throw new UnsupportedOperationException("Unimplemented method 'findById'");
     }
 
-    @Override
-    public List<prestamo> filtropPrestamos(String filtro) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'filtropPrestamos'");
-    }
-
-
-
+   
 }

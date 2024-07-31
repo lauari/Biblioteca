@@ -11,7 +11,7 @@ public interface iprestamoService {
 
     public List<prestamo> findAll();
 
-    public List<prestamo> prestamoExist(String nombre, String correo);
+    public List<prestamo> prestamoExist(String estado);
 
     public Optional<prestamo> findOne(String id);
 

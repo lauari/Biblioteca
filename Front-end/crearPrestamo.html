@@ -91,10 +91,10 @@ transform: translateX(-56px);
 }
 
 </style>
-<body>
+<body onload="CargaUsuarios(); CargarLibros();">
   <div class="container">
     <div class="col-sm-8 d-flex align-items-center">
-      <!-- Botón "Volver al usuario" -->
+      <!-- Botón "Volver al Prestamo" -->
       <a href="./prestamo.html" class="button mr-3">
           <div class="button-box">
               <span class="button-elem">
@@ -123,11 +123,11 @@ transform: translateX(-56px);
         </div>
         <div class="col col-xl-6 col-12 Dark__container">
             <label class="Dark__label" for="usuario">Usuario</label>
-            <input id="usuario" class="form-control Dark__input">
+            <select id="usuario" class="form-select"></select>
         </div>
         <div class="col col-xl-6 col-12 Dark__container">
             <label class="Dark__label" for="libro">Libro</label>
-            <input id="libro" class="form-control Dark__input">
+            <select id="libro" class="form-select"></select>
         </div>
         <div class="col col-xl-6 col-12 Dark__container">
             <label class="Dark__label" for="estado">Estado</label>

@@ -1,3 +1,43 @@
+// Inserta el CSS directamente en el documento
+(function() {
+    var style = document.createElement('style');
+    style.innerHTML = `
+  .celda-opciones {
+            display: flex;
+            gap: 0; /* No hay espacio entre los botones */
+        }
+        .btn {
+            border: none;
+            padding: 5px 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .btn-eliminar {
+            background-color: ;
+            color: black;
+        }
+        .btn-eliminar:hover {
+            background-color: ;
+        }
+        .btn-editar {
+            background-color: ;
+            color: black;
+        }
+        .btn-editar:hover {
+            background-color: ;
+        }
+        .btn-detalles {
+            background-color: ;
+            color: black;
+        }
+        .btn-detalles:hover {
+            background-color: ;
+        }
+    `;
+    document.head.appendChild(style);
+})();
+
+
 var url = "http://localhost:8080/api/v1/usuario/";
 
 
@@ -31,7 +71,9 @@ function listaUsuario() {
                 var celdaCorreo = document.createElement("td");
                 var celdaTipoUsuario = document.createElement("td");
                 var celdaOpciones = document.createElement("td");
-                
+
+                 // Asignar la clase CSS a la celda de opciones
+                 celdaOpciones.className = "celda-opciones";
 
                 // Asignar valores a las celdas
                 celdaId.innerText = usuario.idUsuario;
@@ -39,6 +81,27 @@ function listaUsuario() {
                 celdaDireccion.innerText = usuario.direccion;
                 celdaCorreo.innerText = usuario.correo;
                 celdaTipoUsuario.innerText = usuario.tipoUsuario;
+
+                // Botón detalles
+                var btnDetalles = crearBoton("btn detalles", '<i class="fas fa-info-circle"></i>', function() {
+                    mostrarDetalles(usuario);
+                });
+
+                 // Función para mostrar los detalles del libro
+                 function mostrarDetalles(usuario) {
+                    Swal.fire({
+                        title: 'Detalles del Libro',
+                        html: `
+                            <p><strong>ID:</strong> ${usuario.idUsuario}</p>
+                            <p><strong>Título:</strong> ${usuario.nombre}</p>
+                            <p><strong>Autor:</strong> ${usuario.direccion}</p>
+                            <p><strong>ISBN:</strong> ${usuario.correo}</p>
+                            <p><strong>Género:</strong> ${usuario.tipoUsuario}</p>
+                        `,
+                        icon: 'info',
+                        confirmButtonText: 'Cerrar'
+                    });
+                }
 
                 // Botón eliminar
                 var btnEliminar = crearBoton("btn eliminar", '<i class="fas fa-trash-alt"></i>', function() {
@@ -64,6 +127,7 @@ function listaUsuario() {
 
 
                 // Añadir botones a la celda de opciones
+                celdaOpciones.appendChild(btnDetalles);
                 celdaOpciones.appendChild(btnEditar);
                 celdaOpciones.appendChild(btnEliminar);
 

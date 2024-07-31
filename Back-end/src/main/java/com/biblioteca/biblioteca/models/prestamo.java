@@ -1,7 +1,5 @@
 package com.biblioteca.biblioteca.models;
 
-import java.util.Date;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,39 +27,30 @@ public class prestamo {
      private String idPrestamo;
 
      @Column(name = "fechaPrestamo", nullable = false, length = 36)
-     private Date fechaPrestamo;
+     private String fechaPrestamo;
 
      @Column(name = "fechaDevolucion", nullable = false, length = 36)
-     private Date fechaDevolucion;
-
-     @Column(name = "UsuarioPrestamo", nullable = false, length = 36)
-     private String UsuarioPrestamo;
-
-     @Column(name = "libroPrestado", nullable = false, length = 36)
-     private String libroPrestado;
+     private String fechaDevolucion;
 
      @Column(name = "estado", nullable = false, length = 36)
      private String estado;
 
      @ManyToOne
-     @JoinColumn(name = "idUsuario")
+     @JoinColumn(name = "usuario")
      private usuario usuario;
 
      @ManyToOne
-     @JoinColumn(name = "idLibro")
+     @JoinColumn(name = "libro")
      private libro libro;
 
     public prestamo() {
     }
 
-    public prestamo(String idPrestamo, Date fechaPrestamo, Date fechaDevolucion, String usuarioPrestamo,
-            String libroPrestado, String estado, com.biblioteca.biblioteca.models.usuario usuario,
-            com.biblioteca.biblioteca.models.libro libro) {
+    public prestamo(String idPrestamo, String fechaPrestamo, String fechaDevolucion, String estado,
+            com.biblioteca.biblioteca.models.usuario usuario, com.biblioteca.biblioteca.models.libro libro) {
         this.idPrestamo = idPrestamo;
         this.fechaPrestamo = fechaPrestamo;
         this.fechaDevolucion = fechaDevolucion;
-        UsuarioPrestamo = usuarioPrestamo;
-        this.libroPrestado = libroPrestado;
         this.estado = estado;
         this.usuario = usuario;
         this.libro = libro;
@@ -75,36 +64,20 @@ public class prestamo {
         this.idPrestamo = idPrestamo;
     }
 
-    public Date getFechaPrestamo() {
+    public String getFechaPrestamo() {
         return fechaPrestamo;
     }
 
-    public void setFechaPrestamo(Date fechaPrestamo) {
+    public void setFechaPrestamo(String fechaPrestamo) {
         this.fechaPrestamo = fechaPrestamo;
     }
 
-    public Date getFechaDevolucion() {
+    public String getFechaDevolucion() {
         return fechaDevolucion;
     }
 
-    public void setFechaDevolucion(Date fechaDevolucion) {
+    public void setFechaDevolucion(String fechaDevolucion) {
         this.fechaDevolucion = fechaDevolucion;
-    }
-
-    public String getUsuarioPrestamo() {
-        return UsuarioPrestamo;
-    }
-
-    public void setUsuarioPrestamo(String usuarioPrestamo) {
-        UsuarioPrestamo = usuarioPrestamo;
-    }
-
-    public String getLibroPrestado() {
-        return libroPrestado;
-    }
-
-    public void setLibroPrestado(String libroPrestado) {
-        this.libroPrestado = libroPrestado;
     }
 
     public String getEstado() {
@@ -130,4 +103,6 @@ public class prestamo {
     public void setLibro(libro libro) {
         this.libro = libro;
     }
+
+    
 }
