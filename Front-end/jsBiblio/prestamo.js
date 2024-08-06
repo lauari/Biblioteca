@@ -130,7 +130,14 @@ function listaPrestamo() {
                     });
                 });
 
+                 // Botón editar
+                 var btnEditar = crearBoton("btn editar", '<i class="fas fa-edit"></i>', function() {
+                    abrirModalEditar(prestamo);
+                });
+
+
                 // Añadir botones a la celda de opciones
+                celdaOpciones.appendChild(btnEditar);
                 celdaOpciones.appendChild(btnEliminar);
                 celdaOpciones.appendChild(btnDetalles);
 
@@ -291,3 +298,63 @@ window.onload = function() {
     cargarUsuarios();
     listaPrestamo();
 }
+
+// Función para abrir el modal de editar
+function abrirModalEditar(prestamo) {
+    document.getElementById("editarIdPrestamo").value = prestamo.idPrestamo;
+    document.getElementById("editarFechaPrestamo").value = prestamo.fechaPrestamo;
+    document.getElementById("editarFechaDevolucion").value = prestamo.fechaDevolucion;
+    document.getElementById("editarEstado").value = prestamo.estado;
+
+    var modal = document.getElementById("editarModal");
+    modal.style.display = "block";
+}
+
+// Función para cerrar el modal de editar
+function cerrarModalEditar() {
+    var modal = document.getElementById("editarModal");
+    modal.style.display = "none";
+}
+
+// Función para guardar los cambios del libro editado
+function guardarEdicion() {
+    var idPrestamo = document.getElementById("editarIdPrestamo").value;
+    var FechaPrestamo = document.getElementById("editarFechaPrestamo").value;
+    var FechaDevolucion = document.getElementById("editarFechaDevolucion").value;
+    var Estado = document.getElementById("editarEstado").value;
+
+    // Datos del formulario
+    let formData = {
+        "fechaPrestamo": FechaPrestamo,
+        "fechaDevolucion": FechaDevolucion,
+        "estado": Estado
+    };
+
+    $.ajax({
+        url: url + idPrestamo,
+        type: "PUT",
+        data: formData, // Asegúrate de enviar los datos en formato JSON
+        success: function (result) {
+            Swal.fire({
+                title: "¡Excelente!",
+                text: "El libro ha sido actualizado correctamente",
+                icon: "success"
+            });
+            cerrarModalEditar();
+            listaPrestamo(); // Actualizar la lista después de editar
+        },
+        error: function (error) {
+            Swal.fire({
+                title: "Error",
+                text: "Error al actualizar el libro",
+                icon: "error"
+            });
+        }
+    });
+}
+
+// Inicializar la lista de libros al cargar la página
+document.addEventListener("DOMContentLoaded", function() {
+    listaLibro();
+});
+

@@ -80,12 +80,12 @@ function listaLibro() {
                 celdanumEjemocupados.innerText = libro.numEjemocupados;
 
                 // Botón detalles
-                var btnDetalles = crearBoton("btn-detalles", '<i class="fas fa-info-circle"></i>', function() {
+                var btnDetalles = crearBoton("btn detalles", '<i class="fas fa-info-circle"></i>', function() {
                     mostrarDetalles(libro);
                 });
 
                 // Botón eliminar
-                var btnEliminar = crearBoton("btn-eliminar", '<i class="fas fa-trash-alt"></i>', function() {
+                var btnEliminar = crearBoton("btn eliminar", '<i class="fas fa-trash-alt"></i>', function() {
                     Swal.fire({
                         title: '¿Estás seguro de eliminar este libro?',
                         text: "No se puede revertir",
@@ -101,7 +101,7 @@ function listaLibro() {
                     });
                 });
                  // Botón editar
-                 var btnEditar = crearBoton("btn-editar", '<i class="fas fa-edit"></i>', function() {
+                 var btnEditar = crearBoton("btn editar", '<i class="fas fa-edit"></i>', function() {
                     abrirModalEditar(libro);
                 });
 

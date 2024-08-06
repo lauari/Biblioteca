@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <style>
-        body {
-            color: #566787;
+         body {
+            color: black;
             background: #f5f5f5;
             font-family: 'Varela Round', sans-serif;
             font-size: 13px;
@@ -224,6 +224,154 @@ fill: white;
 transition: 0.4s;
 transform: translateX(-56px);
 }
+/* Estilos para el Modal */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.6); /* Fondo semi-transparente */
+}
+
+/* Contenido del Modal */
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto; 
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%; 
+    max-width: 600px; /* Máximo ancho para pantallas grandes */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    position: relative;
+}
+
+/* Estilo del encabezado del Modal */
+.modal-header {
+    margin-bottom: 20px;
+    color: #f086bb; /* Color personalizado para el título */
+    text-align: center;
+    font-size: 24px;
+}
+
+/* Estilo del botón de cerrar */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+}
+
+/* Estilo del formulario */
+.modal-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.btn-submit {
+    background-color: #f086bb; /* Color personalizado para el botón */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: #d075a0; /* Color de hover */
+}
+/* El modal de fondo */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 1; /* Sobre todo el contenido */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0); /* Color de fondo negro */
+    background-color: rgba(0,0,0,0.4); /* Fondo oscuro con opacidad */
+}
+
+/* Contenido del modal */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* Centrado vertical y horizontal */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Ancho del modal */
+    max-width: 600px; /* Ancho máximo del modal */
+    border-radius: 5px; /* Bordes redondeados */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+
+/* Botón de cerrar */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Etiquetas y campos del formulario */
+form label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+form input[type="text"],
+form input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+form button {
+    background-color: #4CAF50; /* Verde */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #45a049; /* Verde más oscuro */
+}
     </style>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -231,6 +379,28 @@ transform: translateX(-56px);
     <script src="./jsBiblio/prestamo.js"></script>
 </head>
 <body onload="listaPrestamo()">
+   <!-- Modal de Editar -->
+<div id="editarModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModalEditar()">&times;</span>
+        <h2>Editar Préstamo</h2>
+        <form id="editarForm">
+            <input type="hidden" id="editarIdPrestamo">
+            <label class="Dark__label" for="editarFechaPrestamo">Fecha de préstamo</label>
+            <input type="date" id="editarFechaPrestamo" class="form-control Dark__input" placeholder="Selecciona una fecha">
+            <label class="Dark__label" for="editarFechaDevolucion">Fecha de Devolucion</label>
+            <input type="date" id="editarFechaDevolucion" class="form-control Dark__input" placeholder="Selecciona una fecha">
+            <label class="Dark__label" for="editarEstado">Estado:</label>
+            <select id="editarEstado" class="form-control Dark__input" required>
+                <option value="" disabled selected>Selecciona el estado</option>
+                <option value="Prestamo">Préstamo</option>
+                <option value="Entregado">Entregado</option>
+                <option value="Cancelado">Cancelado</option>
+            </select>
+            <button type="button" onclick="guardarEdicion()">Guardar</button>
+        </form>
+    </div>
+</div>
     <div class="container">
         <div class="table-responsive">
             <div class="table-wrapper">
