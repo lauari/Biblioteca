@@ -127,9 +127,10 @@ function listaUsuario() {
 
 
                 // Añadir botones a la celda de opciones
-                celdaOpciones.appendChild(btnDetalles);
+                
                 celdaOpciones.appendChild(btnEditar);
                 celdaOpciones.appendChild(btnEliminar);
+                celdaOpciones.appendChild(btnDetalles);
 
                 // Añadir celdas al registro
                 trRegistro.appendChild(celdaId);
@@ -168,7 +169,7 @@ function eliminarUsuario(idUsuario) {
         error: function (error) {
             Swal.fire({
                 title: "Error",
-                text: "Error al eliminar el usuario",
+                text: "Error al eliminar el usuario ¡Tiene un Prestamo!",
                 icon: "error"
             });
         }
