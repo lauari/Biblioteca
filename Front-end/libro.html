@@ -99,82 +99,148 @@
     background-color: #d075a0; /* Color de hover */
 }
 
+/* El modal de fondo */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 1; /* Sobre todo el contenido */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0); /* Color de fondo negro */
+    background-color: rgba(0,0,0,0.4); /* Fondo oscuro con opacidad */
+}
+
+/* Contenido del modal */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* Centrado vertical y horizontal */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Ancho del modal */
+    max-width: 600px; /* Ancho máximo del modal */
+    border-radius: 5px; /* Bordes redondeados */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+
+/* Botón de cerrar */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Etiquetas y campos del formulario */
+form label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+form input[type="text"],
+form input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+form button {
+    background-color: #4CAF50; /* Verde */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #45a049; /* Verde más oscuro */
+}
+
     </style>
 
 </head>
 <body onload="listaLibro()">
-       <!-- Modal para editar libro -->
-       <div id="editModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2 class="modal-header">Editar Libro</h2>
-            <form id="editForm" class="modal-form">
-                <label for="titulo">Título:</label>
-                <input type="text" id="titulo" class="form-control"><br>
-                
-                <label for="autor">Autor:</label>
-                <input type="text" id="autor" class="form-control"><br>
-                
-                <label for="genero">Género:</label>
-                <select id="genero" class="form-control">
-                    <option value="">Seleccione un género</option>
-                    <option value="aventura">Aventura</option>
-                    <option value="biografia">Biografía</option>
-                    <option value="ciencia_ficcion">Ciencia Ficción</option>
-                    <option value="clasicos">Clásicos</option>
-                    <option value="contemporanea">Contemporánea</option>
-                    <option value="cuento">Cuento</option>
-                    <option value="drama">Drama</option>
-                    <option value="ensayo">Ensayo</option>
-                    <option value="fantasia">Fantasía</option>
-                    <option value="historia">Historia</option>
-                    <option value="horror">Horror</option>
-                    <option value="infantil">Infantil</option>
-                    <option value="misterio">Misterio</option>
-                    <option value="novela">Novela</option>
-                    <option value="poesia">Poesía</option>
-                    <option value="romance">Romance</option>
-                    <option value="saga">Saga</option>
-                    <option value="suspenso">Suspenso</option>
-                    <option value="terror">Terror</option>
-                    <option value="thriller">Thriller</option>
-                    <option value="autoayuda">Autoayuda</option>
-                    <option value="erotico">Erótico</option>
-                    <option value="juvenil">Juvenil</option>
-                    <option value="politica">Política</option>
-                    <option value="religioso">Religioso</option>
-                    <option value="ciencia">Ciencia</option>
-                    <option value="filosofia">Filosofía</option>
-                    <option value="historia_ficcion">Historia de Ficción</option>
-                    <option value="musica">Música</option>
-                    <option value="psicologia">Psicología</option>
-                    <option value="viajes">Viajes</option>
-                    <option value="cocina">Cocina</option>
-                    <option value="medicina">Medicina</option>
-                    <option value="arte">Arte</option>
-                    <option value="deportes">Deportes</option>
-                    <option value="educacion">Educación</option>
-                    <option value="negocios">Negocios</option>
-                    <option value="computacion">Computación</option>
-                    <option value="ingenieria">Ingeniería</option>
-                    <option value="tecnologia">Tecnología</option>
-                    <option value="crimen">Crimen</option>
-                </select>
-    
-                <label for="ISBN">ISBN:</label>
-                <input type="number" id="ISBN" class="form-control"><br>
-                
-                <label for="numEjemdisponibles">Ejemplares Disponibles:</label>
-                <input type="number" id="numEjemdisponibles" class="form-control"><br>
-                
-                <label for="numEjemocupados">Ejemplares Ocupados:</label>
-                <input type="number" id="numEjemocupados" class="form-control"><br>
-                
-                <button id="btnGuardar" onclick="">Actualizar</button>
-            </form>
-        </div>
+<!-- Modal de Editar -->
+<div id="editarModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModalEditar()">&times;</span>
+        <h2>Editar Libro</h2>
+        <form id="editarForm">
+            <input type="hidden" id="editarIdLibro">
+            <label for="editarTitulo">Título:</label>
+            <input type="text" id="editarTitulo" required>
+            <label for="editarAutor">Autor:</label>
+            <input type="text" id="editarAutor" required>
+            <label for="editarGenero">Género:</label>
+            <select id="editarGenero" class="form-control Dark__input">
+                <option value="">Seleccione un género</option>
+                <option value="aventura">Aventura</option>
+                <option value="biografia">Biografía</option>
+                <option value="ciencia_ficcion">Ciencia Ficción</option>
+                <option value="clasicos">Clásicos</option>
+                <option value="contemporanea">Contemporánea</option>
+                <option value="cuento">Cuento</option>
+                <option value="drama">Drama</option>
+                <option value="ensayo">Ensayo</option>
+                <option value="fantasia">Fantasía</option>
+                <option value="historia">Historia</option>
+                <option value="horror">Horror</option>
+                <option value="infantil">Infantil</option>
+                <option value="misterio">Misterio</option>
+                <option value="novela">Novela</option>
+                <option value="poesia">Poesía</option>
+                <option value="romance">Romance</option>
+                <option value="saga">Saga</option>
+                <option value="suspenso">Suspenso</option>
+                <option value="terror">Terror</option>
+                <option value="thriller">Thriller</option>
+                <option value="autoayuda">Autoayuda</option>
+                <option value="erotico">Erótico</option>
+                <option value="juvenil">Juvenil</option>
+                <option value="politica">Política</option>
+                <option value="religioso">Religioso</option>
+                <option value="ciencia">Ciencia</option>
+                <option value="filosofia">Filosofía</option>
+                <option value="historia_ficcion">Historia de Ficción</option>
+                <option value="musica">Música</option>
+                <option value="psicologia">Psicología</option>
+                <option value="viajes">Viajes</option>
+                <option value="cocina">Cocina</option>
+                <option value="medicina">Medicina</option>
+                <option value="arte">Arte</option>
+                <option value="deportes">Deportes</option>
+                <option value="educacion">Educación</option>
+                <option value="negocios">Negocios</option>
+                <option value="computacion">Computación</option>
+                <option value="ingenieria">Ingeniería</option>
+                <option value="tecnologia">Tecnología</option>
+                <option value="crimen">Crimen</option>
+            </select>
+            <label for="editarISBN">ISBN:</label>
+            <input type="text" id="editarISBN" required>
+            <label for="editarNumEjemdisponibles">Ejemplares Disponibles:</label>
+            <input type="number" id="editarNumEjemdisponibles" required>
+            <label for="editarNumEjemocupados">Ejemplares Ocupados:</label>
+            <input type="number" id="editarNumEjemocupados" required>
+            <button type="button" onclick="guardarEdicion()">Guardar</button>
+        </form>
     </div>
-        
+</div>
+
+ 
     <div class="container">
         <div class="table-responsive">
             <div class="table-wrapper">

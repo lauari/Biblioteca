@@ -1,4 +1,4 @@
-// Inserta el CSS directamente en el documento
+// CSS para el modal
 (function() {
     var style = document.createElement('style');
     style.innerHTML = `
@@ -14,26 +14,21 @@
             margin: 0; /* Sin margen entre botones */
         }
         .btn-eliminar {
-            background-color: ;
             color: black;
         }
         .btn-eliminar:hover {
-            background-color:;
         }
         .btn-editar {
-            background-color: ;
             color: black;
         }
         .btn-editar:hover {
-            background-color:;
         }
         .btn-detalles {
-            background-color:;
             color: black;
         }
         .btn-detalles:hover {
-            background-color:;
         }
+       
     `;
     document.head.appendChild(style);
 })();
@@ -105,108 +100,10 @@ function listaLibro() {
                         }
                     });
                 });
-
-                // Función para eliminar un libro por su ID
-                function eliminarLibro(idLibro) {
-                    $.ajax({
-                        url: url + idLibro,
-                        type: "DELETE",
-                        success: function (result) {
-                            Swal.fire({
-                                title: "¡Eliminado!",
-                                text: "El libro ha sido eliminado.",
-                                icon: "success"
-                            });
-                            listaLibro(); // Actualizar la lista después de eliminar
-                        },
-                        error: function (error) {
-                            Swal.fire({
-                                title: "Error",
-                                text: "Error al eliminar el libro ¡Esta Prestado!",
-                                icon: "error"
-                            });
-                        }
-                    });
-                }
-
-                var modal = document.getElementById("editModal");
-
-                // Obtener el botón de guardar
-                var btnGuardar = document.getElementById("btnGuardar");
-                
-                // Botón editar
-                var btnEditar = crearBoton("btn editar", '<i class="fas fa-edit"></i>', function() {
-                    mostrarFormularioEdicion(libro);
+                 // Botón editar
+                 var btnEditar = crearBoton("btn-editar", '<i class="fas fa-edit"></i>', function() {
+                    abrirModalEditar(libro);
                 });
-                
-                // Manejar el clic en el botón de guardar
-                btnGuardar.onclick = function() {
-                    actualizarDatos();
-                };
-                
-                // Función para mostrar el formulario de edición con los datos del libro
-                function mostrarFormularioEdicion(libro) {
-                    // Rellenar el formulario con los datos del libro
-                    document.getElementById("titulo").value = libro.titulo;
-                    document.getElementById("autor").value = libro.autor;
-                    document.getElementById("genero").value = libro.genero;
-                    document.getElementById("ISBN").value = libro.isbn;  // Corregido a libro.ISBN
-                    document.getElementById("numEjemdisponibles").value = libro.numEjemdisponibles;
-                    document.getElementById("numEjemocupados").value = libro.numEjemocupados;
-                
-                    // Mostrar el modal
-                    modal.style.display = "block";
-                }
-                
-                // Cuando el usuario hace clic en cualquier parte fuera del modal, cerrar el modal
-                window.onclick = function(event) {
-                    if (event.target == modal) {
-                        modal.style.display = "none";
-                    }
-                };
-                
-                function actualizarDatos() {
-                    // Obtener los valores actualizados del formulario
-                    var libro = document.getElementById("libro").value;
-                    var titulo = document.getElementById("titulo").value;
-                    var autor = document.getElementById("autor").value;
-                    var genero = document.getElementById("genero").value;
-                    var isbn = document.getElementById("ISBN").value;
-                    var numEjemdisponibles = document.getElementById("numEjemdisponibles").value;
-                    var numEjemocupados = document.getElementById("numEjemocupados").value;
-                
-                    // Crear un objeto con los datos del libro
-                    var libroActualizado = {
-                        titulo: titulo,
-                        autor: autor,
-                        genero: genero,
-                        isbn: isbn,  // Corregido a ISBN
-                        numEjemdisponibles: numEjemdisponibles,
-                        numEjemocupados: numEjemocupados
-                    };
-                    
-                    // Realizar la solicitud AJAX
-                    $.ajax({
-                        url: url + libro,
-                        type: "PUT",
-                        data: libroActualizado, // Asegúrate de enviar los datos en formato JSON
-                        success: function(result) {
-                            Swal.fire({
-                                title: "¡Excelente!",
-                                text: "Se guardó correctamente",
-                                icon: "success"
-                            });
-                        },
-                        error: function(error) {
-                            Swal.fire({
-                                title: "Error",
-                                text: "Error al actualizar el libro",
-                                icon: "error"
-                            });
-                        }
-                    });
-                }
-                
 
                 // Función para mostrar los detalles del libro
                 function mostrarDetalles(libro) {
@@ -227,7 +124,6 @@ function listaLibro() {
                 }
 
                 // Añadir botones a la celda de opciones
-               
                 celdaOpciones.appendChild(btnEditar);
                 celdaOpciones.appendChild(btnEliminar);
                 celdaOpciones.appendChild(btnDetalles);
@@ -249,6 +145,28 @@ function listaLibro() {
         error: function (error) {
             console.error("Error en la petición:", error);
             alert("Error en la petición: " + error.statusText);
+        }
+    });
+}
+ // Función para eliminar un libro por su ID
+ function eliminarLibro(idLibro) {
+    $.ajax({
+        url: url + idLibro,
+        type: "DELETE",
+        success: function (result) {
+            Swal.fire({
+                title: "¡Eliminado!",
+                text: "El libro ha sido eliminado.",
+                icon: "success"
+            });
+            listaLibro(); // Actualizar la lista después de eliminar
+        },
+        error: function (error) {
+            Swal.fire({
+                title: "Error",
+                text: "Error al eliminar el libro ¡Esta Prestado!",
+                icon: "error"
+            });
         }
     });
 }
@@ -275,7 +193,7 @@ function agregarLibro() {
     $.ajax({
         url: url,
         type: "POST",
-        data: formData, // Asegúrate de enviar los datos en formato JSO
+        data: formData, // Asegúrate de enviar los datos en formato JSON
         success: function (result) {
             Swal.fire({
                 title: "¡Excelente!",
@@ -304,3 +222,71 @@ function limpiarFormulario() {
     document.getElementById("numEjemdisponibles").value = "";
     document.getElementById("numEjemocupados").value = "";
 }
+
+// Función para abrir el modal de editar
+function abrirModalEditar(libro) {
+    document.getElementById("editarIdLibro").value = libro.idLibro;
+    document.getElementById("editarTitulo").value = libro.titulo;
+    document.getElementById("editarAutor").value = libro.autor;
+    document.getElementById("editarGenero").value = libro.genero;
+    document.getElementById("editarISBN").value = libro.isbn;
+    document.getElementById("editarNumEjemdisponibles").value = libro.numEjemdisponibles;
+    document.getElementById("editarNumEjemocupados").value = libro.numEjemocupados;
+
+    var modal = document.getElementById("editarModal");
+    modal.style.display = "block";
+}
+
+// Función para cerrar el modal de editar
+function cerrarModalEditar() {
+    var modal = document.getElementById("editarModal");
+    modal.style.display = "none";
+}
+
+// Función para guardar los cambios del libro editado
+function guardarEdicion() {
+    var idLibro = document.getElementById("editarIdLibro").value;
+    var titulo = document.getElementById("editarTitulo").value;
+    var autor = document.getElementById("editarAutor").value;
+    var genero = document.getElementById("editarGenero").value;
+    var ISBN = document.getElementById("editarISBN").value;
+    var numEjemdisponibles = document.getElementById("editarNumEjemdisponibles").value;
+    var numEjemocupados = document.getElementById("editarNumEjemocupados").value;
+
+    // Datos del formulario
+    let formData = {
+        "titulo": titulo,
+        "autor": autor,
+        "genero": genero,
+        "ISBN": ISBN,
+        "numEjemdisponibles": numEjemdisponibles,
+        "numEjemocupados": numEjemocupados
+    };
+
+    $.ajax({
+        url: url + idLibro,
+        type: "PUT",
+        data: formData, // Asegúrate de enviar los datos en formato JSON
+        success: function (result) {
+            Swal.fire({
+                title: "¡Excelente!",
+                text: "El libro ha sido actualizado correctamente",
+                icon: "success"
+            });
+            cerrarModalEditar();
+            listaLibro(); // Actualizar la lista después de editar
+        },
+        error: function (error) {
+            Swal.fire({
+                title: "Error",
+                text: "Error al actualizar el libro",
+                icon: "error"
+            });
+        }
+    });
+}
+
+// Inicializar la lista de libros al cargar la página
+document.addEventListener("DOMContentLoaded", function() {
+    listaLibro();
+});

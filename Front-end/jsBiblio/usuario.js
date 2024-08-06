@@ -120,9 +120,9 @@ function listaUsuario() {
                     });
                 });
 
-                // Botón editar
-                var btnEditar = crearBoton("btn editar", '<i class="fas fa-edit"></i>', function() {
-                    listaUsuario(usuario);
+                 // Botón editar
+                 var btnEditar = crearBoton("btn editar", '<i class="fas fa-edit"></i>', function() {
+                    abrirModalEditar(usuario);
                 });
 
 
@@ -219,3 +219,66 @@ function limpiarFormularioUsuario() {
     document.getElementById("correo").value = "";
     document.getElementById("tipoUsuario").value = "";
 }
+// Función para abrir el modal de editar
+function abrirModalEditar(usuario) {
+    document.getElementById("editarIdUsuario").value = usuario.idUsuario;
+    document.getElementById("editarNombre").value = usuario.nombre;
+    document.getElementById("editarDireccion").value = usuario.direccion;
+    document.getElementById("editarCorreo").value = usuario.correo;
+    document.getElementById("editarTipoUsuario").value = usuario.tipoUsuario;
+
+
+    var modal = document.getElementById("editarModal");
+    modal.style.display = "block";
+}
+
+// Función para cerrar el modal de editar
+function cerrarModalEditar() {
+    var modal = document.getElementById("editarModal");
+    modal.style.display = "none";
+}
+
+// Función para guardar los cambios del libro editado
+function guardarEdicion() {
+    var idUsuario = document.getElementById("editarIdUsuario").value;
+    var Nombre = document.getElementById("editarNombre").value;
+    var Direccion = document.getElementById("editarDireccion").value;
+    var Correo= document.getElementById("editarCorreo").value;
+    var TipoUsuario = document.getElementById("editarTipoUsuario").value;
+
+
+    // Datos del formulario
+    let formData = {
+        "nombre": Nombre,
+        "direccion": Direccion,
+        "correo": Correo,
+        "tipoUsuario": TipoUsuario
+    };
+
+    $.ajax({
+        url: url + idUsuario,
+        type: "PUT",
+        data: formData, // Asegúrate de enviar los datos en formato JSON
+        success: function (result) {
+            Swal.fire({
+                title: "¡Excelente!",
+                text: "El libro ha sido actualizado correctamente",
+                icon: "success"
+            });
+            cerrarModalEditar();
+            listaUsuario(); // Actualizar la lista después de editar
+        },
+        error: function (error) {
+            Swal.fire({
+                title: "Error",
+                text: "Error al actualizar el libro",
+                icon: "error"
+            });
+        }
+    });
+}
+
+// Inicializar la lista de libros al cargar la página
+document.addEventListener("DOMContentLoaded", function() {
+    listaUsuario();
+});
